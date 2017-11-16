@@ -21,13 +21,36 @@ namespace ResourceMonitor
             float cpu = cpuPerf.NextValue();
             float ramAv = ramPerfAv.NextValue();
             float ramPerc = ramPerfPerc.NextValue();
+            float upload = upPerf.NextValue();
+            float download = downPerf.NextValue();
 
             //Bar values
             cpuBar.Value = (int)cpu;
             ramBar.Value = (int)ramPerc;
 
-            cpuPerc.Text = string.Format("{0:0.00}%", cpu);
-            ramAmt.Text = string.Format("{0:0.00} GB FREE", ramAv/1000);
+            //Text Values
+            cpuText.Text = string.Format("{0:0.00}%", cpu);
+            ramText.Text = string.Format("{0:0.00} GB FREE", ramAv/1000);
+
+            //Upload Text Values
+            if(upload > 1000000000.00)
+                upText.Text = string.Format("{0:0.00} Gb/s", upload / 1000000000.00);
+            else if(upload > 1000000.00)
+                upText.Text = string.Format("{0:0.00} Mb/s", upload / 1000000.00);
+            else if (upload > 1000.00)
+                upText.Text = string.Format("{0:0.00} Kb/s", upload / 1000.00);
+            else
+                upText.Text = string.Format("{0:0.00} b/s", upload);
+
+            //Download Text Values
+            if (download > 1000000000.00)
+                downText.Text = string.Format("{0:0.00} Gb/s", download / 1000000000.00);
+            else if (download > 1000000.00)
+                downText.Text = string.Format("{0:0.00} Mb/s", download / 1000000.00);
+            else if (download > 1000.00)
+                downText.Text = string.Format("{0:0.00} Kb/s", download / 1000.00);
+            else
+                downText.Text = string.Format("{0:0.00} b/s", download);
         }
 
         //Start Timer
